@@ -21,6 +21,9 @@ return require('packer').startup(function(use)
   -- Let Packer manage itself
   use('wbthomason/packer.nvim')
 
+  -- git commands
+  use('tpope/vim-fugitive')
+
   if packer_bootstrap then
     require('packer').sync()
   end
