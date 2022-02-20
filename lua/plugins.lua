@@ -48,6 +48,13 @@ return require('packer').startup(function(use)
     end
   })
 
+  -- autocompletion
+  use({
+    "ms-jpq/coq_nvim",
+    branch="coq",
+  })
+  use({'ms-jpq/coq.artifacts', branch = 'artifacts'})
+
   use('tpope/vim-fugitive')
   use ({
     'lewis6991/gitsigns.nvim',
