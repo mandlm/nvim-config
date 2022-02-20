@@ -21,6 +21,9 @@ return require('packer').startup(function(use)
   -- Let Packer manage itself
   use('wbthomason/packer.nvim')
 
+  -- Themes
+  use('altercation/vim-colors-solarized')
+
   -- git commands
   use('tpope/vim-fugitive')
 
