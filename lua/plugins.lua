@@ -38,6 +38,16 @@ return require('packer').startup(function(use)
   }
 
   -- git commands
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function ()
+      require("indent_blankline").setup {
+        char = "┊",
+        buftype_exclude = {"terminal", "help"}
+      }
+    end
+  })
+
   use('tpope/vim-fugitive')
   use ({
     'lewis6991/gitsigns.nvim',
