@@ -24,6 +24,10 @@ return require('packer').startup(function(use)
   -- Themes
   use('altercation/vim-colors-solarized')
 
+  -- session handling
+  use('tpope/vim-obsession')
+  use('dhruvasagar/vim-prosession')
+
   -- git commands
   use('tpope/vim-fugitive')
 
