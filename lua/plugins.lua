@@ -48,12 +48,20 @@ return require('packer').startup(function(use)
     end
   })
 
+  -- language server
+  use("neovim/nvim-lspconfig")
+
   -- autocompletion
   use({
     "ms-jpq/coq_nvim",
     branch="coq",
   })
   use({'ms-jpq/coq.artifacts', branch = 'artifacts'})
+
+  local language_servers = { "bashls", "rls", "sumneko_lua" }
+  for _, server in pairs(language_servers) do
+    require("lspconfig")[server].setup(require("coq").lsp_ensure_capabilities({}))
+  end
 
   use('tpope/vim-fugitive')
   use ({
