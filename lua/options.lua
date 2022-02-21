@@ -39,8 +39,14 @@ vim.opt.smartcase = true
 -- preview commands
 vim.opt.inccommand = "split"
 
--- enable cursorline
-vim.opt.cursorline = true
+-- set cursorline in active window
+vim.cmd([[
+    augroup CursorLine
+        autocmd!
+        autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+        autocmd WinLeave * setlocal nocursorline
+    augroup END
+]])
 
 -- coq.nvim
 vim.g.coq_settings = { auto_start = "shut-up" }
