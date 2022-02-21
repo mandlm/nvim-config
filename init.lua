@@ -1,5 +1,4 @@
-require('settings')
+require("keymaps")
+require('options')
 require('plugins')
 require('themes')
-
-vim.cmd('COQnow -s')

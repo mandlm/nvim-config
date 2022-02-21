@@ -1,77 +1,125 @@
 local fn = vim.fn
-local cmd = vim.cmd
 
--- Boostrap Packer
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+-- boostrap packer
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 local packer_bootstrap
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone','https://github.com/wbthomason/packer.nvim', install_path})
+	packer_bootstrap = fn.system({'git', 'clone','https://github.com/wbthomason/packer.nvim', install_path})
 end
 
--- Rerun PackerSync everytime plugins.lua is updated
-cmd([[
+-- run PackerSync everytime plugins.lua is updated
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
 ]])
 
--- Initialize pluggins
+vim.cmd([[packadd packer.nvim]])
+
+-- initialize plugins
 return require('packer').startup(function(use)
-  -- Let Packer manage itself
-  use('wbthomason/packer.nvim')
+	-- let packer manage itself
+	use({'wbthomason/packer.nvim', opt = true})
 
-  -- Themes
-  use('altercation/vim-colors-solarized')
+	-- theme
+    use("ishan9299/nvim-solarized-lua")
 
-  -- session handling
-  use('tpope/vim-obsession')
-  use('dhruvasagar/vim-prosession')
+    -- commenting
+    use("tpope/vim-commentary")
 
-  -- status line
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function()
-      require('lualine').setup()
-    end
-  }
+	-- session handling
+	use('tpope/vim-obsession')
+	use('dhruvasagar/vim-prosession')
 
-  -- git commands
-  use({
-    "lukas-reineke/indent-blankline.nvim",
-    config = function ()
-      require("indent_blankline").setup {
-        char = "┊",
-        buftype_exclude = {"terminal", "help"}
-      }
-    end
-  })
+	-- status line
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+		config = function()
+			require('lualine').setup()
+		end
+	}
 
-  -- language server
-  use("neovim/nvim-lspconfig")
+	-- tabline
+	use {
+		'kdheepak/tabline.nvim',
+		config = function()
+			require'tabline'.setup {
+				enable = true,
+				options = {
+					show_filename_only = true,
+				}
+			}
+		end,
+		requires = { { 'hoob3rt/lualine.nvim' }, {'kyazdani42/nvim-web-devicons', opt = true} }
+	}
 
-  -- autocompletion
-  use({
-    "ms-jpq/coq_nvim",
-    branch="coq",
-  })
-  use({'ms-jpq/coq.artifacts', branch = 'artifacts'})
+	-- blankline
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = function ()
+			require("indent_blankline").setup {
+				char = "┊",
+				buftype_exclude = {"terminal", "help"}
+			}
+		end
+	})
 
-  local language_servers = { "bashls", "rls", "sumneko_lua" }
-  for _, server in pairs(language_servers) do
-    require("lspconfig")[server].setup(require("coq").lsp_ensure_capabilities({}))
-  end
+	-- git
+	use('tpope/vim-fugitive')
+	use ({
+		'lewis6991/gitsigns.nvim',
+		requires = {'nvim-lua/plenary.nvim'},
+		config = function() require('gitsigns').setup() end
+	})
 
-  use('tpope/vim-fugitive')
-  use ({
-    'lewis6991/gitsigns.nvim',
-    requires = {'nvim-lua/plenary.nvim'},
-    config = function() require('gitsigns').setup() end
-  })
+	-- autocompletion
+	use({
+		"ms-jpq/coq_nvim",
+		branch="coq",
+		requires = {
+		{'ms-jpq/coq.artifacts', branch = 'artifacts'},
+		},
+	})
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+    -- highlight current symbol
+    use({
+        "nvim-treesitter/nvim-treesitter-refactor",
+        config = function () require("nvim-treesitter.configs").setup({
+            refactor = {
+                highlight_definitions = {
+                    enable = true,
+                    clear_on_cursor_move = true,
+                },
+            }
+        })
+        end,
+    })
+
+	-- language server
+	use({
+		"neovim/nvim-lspconfig",
+		config = function() require("plugins.lspconfig") end,
+	})
+
+    use('williamboman/nvim-lsp-installer')
+
+	-- treesitter
+	use({
+		'nvim-treesitter/nvim-treesitter',
+		config = function() require('plugins.treesitter') end,
+		run = ':TSUpdate'
+	})
+
+	-- Telescope
+	use({
+		'nvim-telescope/telescope.nvim',
+		requires = {{'nvim-lua/plenary.nvim'}},
+		config = function() require('plugins.telescope') end,
+	})
+
+	if packer_bootstrap then
+		require('packer').sync()
+	end
 end)
-

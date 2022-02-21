@@ -6,5 +6,5 @@ vim.cmd([[
   augroup end
 ]])
 
-vim.cmd [[colorscheme solarized]]
 vim.opt.background = 'dark'
+vim.cmd("colorscheme solarized")
