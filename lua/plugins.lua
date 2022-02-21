@@ -141,6 +141,11 @@ return require('packer').startup(function(use)
         end,
     })
 
+    -- buffer closing
+    use({
+        "sar/bbye.nvim"
+    })
+
 	if packer_bootstrap then
 		require('packer').sync()
 	end
