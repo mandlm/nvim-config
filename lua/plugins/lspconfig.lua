@@ -12,7 +12,6 @@ local language_servers = {
     "eslint",
     "html",
     "pyright",
-    "remark_ls",
     "rust_analyzer",
     "sumneko_lua",
     "svelte",
