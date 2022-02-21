@@ -146,6 +146,9 @@ return require('packer').startup(function(use)
         "sar/bbye.nvim"
     })
 
+    -- ansible filetype
+    use({"pearofducks/ansible-vim"})
+
 	if packer_bootstrap then
 		require('packer').sync()
 	end
