@@ -7,7 +7,7 @@ vim.cmd([[
 ]])
 
 local function nnoremap(key, command)
-	vim.api.nvim_set_keymap("n",key,command, { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n",key,command, { noremap = true })
 end
 
 vim.g.mapleader = " "

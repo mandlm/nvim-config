@@ -49,4 +49,9 @@ vim.cmd([[
 ]])
 
 -- coq.nvim
-vim.g.coq_settings = { auto_start = "shut-up" }
+vim.g.coq_settings = {
+    auto_start = "shut-up",
+    keymap = {
+        jump_to_mark = "",      -- prevent <C-h> remapping
+    },
+}
