@@ -119,6 +119,20 @@ return require('packer').startup(function(use)
 		config = function() require('plugins.telescope') end,
 	})
 
+    -- markdown preview
+    use({'iamcco/markdown-preview.nvim'})
+
+    -- terminal
+    use({
+        "akinsho/nvim-toggleterm.lua",
+        config = function()
+            require("toggleterm").setup({
+                size = 32,
+                open_mapping = [[<F4>]],
+            })
+        end,
+    })
+
 	if packer_bootstrap then
 		require('packer').sync()
 	end
