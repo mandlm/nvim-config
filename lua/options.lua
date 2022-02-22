@@ -52,6 +52,6 @@ vim.cmd([[
 vim.g.coq_settings = {
     auto_start = "shut-up",
     keymap = {
-        jump_to_mark = "",      -- prevent <C-h> remapping
-    },
+        jump_to_mark = "" -- prevent <C-h> remapping
+    }
 }

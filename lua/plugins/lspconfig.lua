@@ -6,18 +6,8 @@ table.insert(nvim_runtime_path, "lua/?.lua")
 table.insert(nvim_runtime_path, "lua/?/init.lua")
 
 local language_servers = {
-    "ansiblels",
-    "bashls",
-    "dockerls",
-    "eslint",
-    "html",
-    "pyright",
-    "rust_analyzer",
-    "sumneko_lua",
-    "svelte",
-    "taplo",
-    "tsserver",
-    "volar",
+    "ansiblels", "bashls", "dockerls", "efm", "eslint", "html", "pyright",
+    "rust_analyzer", "sumneko_lua", "svelte", "taplo", "tsserver", "volar"
 }
 
 for _, server_name in pairs(language_servers) do
@@ -30,30 +20,31 @@ for _, server_name in pairs(language_servers) do
 end
 
 local extra_server_opts = {
+    ["efm"] = function(opts)
+        opts.filetypes = {"lua"}
+        opts.init_options = {documentFormatting = true}
+        opts.settings = {
+            rootMarkers = {".git/"},
+            languages = {
+                lua = {{formatCommand = "lua-format -i", formatStdin = true}}
+            }
+        }
+    end,
     ["sumneko_lua"] = function(opts)
         opts.settings = {
             Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = nvim_runtime_path,
-                },
-                diagnostics = {
-                    globals = {'vim'},
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true),
-                },
-                telemetry ={
-                    enable = false,
-                },
-            },
+                runtime = {version = 'LuaJIT', path = nvim_runtime_path},
+                diagnostics = {globals = {'vim'}},
+                workspace = {library = vim.api.nvim_get_runtime_file("", true)},
+                telemetry = {enable = false}
+            }
         }
     end
 }
 
 local function custom_on_attach(client, buffer_nr)
     -- onmifunc
-    vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    vim.api.nvim_buf_set_option(buffer_nr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     -- Helper function
     local opts = {noremap = true, silent = true}
@@ -80,7 +71,8 @@ local function custom_on_attach(client, buffer_nr)
     bufnnoremap("<C-p>", "<Cmd>lua vim.diagnostic.goto_prev()<CR>")
 
     -- Show line diagnostics
-    bufnnoremap("<leader>d", '<Cmd>lua vim.diagnostic.open_float(0, {scope = "line"})<CR>')
+    bufnnoremap("<leader>d",
+                '<Cmd>lua vim.diagnostic.open_float(0, {scope = "line"})<CR>')
 
     -- Open local diagnostics in local list
     bufnnoremap("<leader>D", "<Cmd>lua vim.diagnostic.setloclist()<CR>")
@@ -99,7 +91,7 @@ end
 lsp_installer.on_server_ready(function(server)
     local opts = coq.lsp_ensure_capabilities({
         on_attach = custom_on_attach,
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
+        capabilities = vim.lsp.protocol.make_client_capabilities()
     })
 
     if extra_server_opts[server.name] then
