@@ -60,6 +60,14 @@ local function custom_on_attach(client, buffer_nr)
 
     -- Inspect function
     bufnnoremap("K", "<Cmd>lua vim.lsp.buf.hover()<CR>")
+    bufnnoremap("<C-k>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>")
+
+    -- Navigation
+    bufnnoremap("gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+    bufnnoremap("gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
+    bufnnoremap("gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>")
+    bufnnoremap("gr", "<Cmd>lua vim.lsp.buf.references()<CR>")
+    bufnnoremap("ga", "<Cmd>lua vim.lsp.buf.code_action()<CR>")
 
     -- Rename all references of symbol
     bufnnoremap("<leader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>")
