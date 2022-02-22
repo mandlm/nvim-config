@@ -80,6 +80,11 @@ local function custom_on_attach(client, buffer_nr)
     -- Open all project diagnostics in quickfix list
     bufnnoremap("<leader><C-d>", "<Cmd>lua vim.diagnostic.setqflist()<CR>")
 
+    -- disable conflicting formatters
+    if client.name == "tsserver" or client.name == "html" then
+        client.resolved_capabilities.document_formatting = false
+    end
+
     if client.resolved_capabilities.document_formatting then
         vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
