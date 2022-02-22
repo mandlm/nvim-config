@@ -52,6 +52,9 @@ local extra_server_opts = {
 }
 
 local function custom_on_attach(client, buffer_nr)
+    -- onmifunc
+    vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
     -- Helper function
     local opts = {noremap = true, silent = true}
     local function bufnnoremap(key, action)
@@ -88,6 +91,9 @@ local function custom_on_attach(client, buffer_nr)
     if client.resolved_capabilities.document_formatting then
         vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
+
+    -- vim-illuminate
+    require("illuminate").on_attach(client)
 end
 
 lsp_installer.on_server_ready(function(server)

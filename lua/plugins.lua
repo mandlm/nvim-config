@@ -84,18 +84,7 @@ return require('packer').startup(function(use)
 	})
 
     -- highlight current symbol
-    use({
-        "nvim-treesitter/nvim-treesitter-refactor",
-        config = function () require("nvim-treesitter.configs").setup({
-            refactor = {
-                highlight_definitions = {
-                    enable = true,
-                    clear_on_cursor_move = true,
-                },
-            }
-        })
-        end,
-    })
+    use({"RRethy/vim-illuminate"})
 
 	-- language server
 	use({
