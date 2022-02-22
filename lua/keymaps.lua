@@ -7,7 +7,7 @@ vim.cmd([[
 ]])
 
 local function nnoremap(key, command)
-	vim.api.nvim_set_keymap("n",key,command, { noremap = true })
+    vim.api.nvim_set_keymap("n", key, command, {noremap = true})
 end
 
 vim.g.mapleader = " "
@@ -24,7 +24,7 @@ nnoremap("<TAB>", ":TablineBufferNext<CR>")
 nnoremap("<S-TAB>", ":TablineBufferPrevious<CR>")
 
 -- fugitive
-nnoremap("<leader>G", ":tab G<CR>")
+nnoremap("<leader>g", ":Git<CR>")
 
 -- telescope
 nnoremap("<leader>ff", "<Cmd>Telescope find_files theme=dropdown<CR>")
@@ -33,15 +33,15 @@ nnoremap("<leader>fg", "<Cmd>Telescope git_files theme=dropdown<CR>")
 
 -- terminal
 function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+    local opts = {noremap = true}
+    vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
+    vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- buffer closing
-nnoremap("<leader>q", ":Bdelete<CR>")
+nnoremap("<C-w>", ":Bdelete<CR>")
