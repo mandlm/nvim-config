@@ -21,13 +21,36 @@ end
 
 local extra_server_opts = {
     ["efm"] = function(opts)
-        opts.filetypes = {"lua"}
+        opts.filetypes = {
+            "lua", "html", "markdown", "typescript", "typescriptreact"
+        }
         opts.init_options = {documentFormatting = true}
         opts.settings = {
             rootMarkers = {".git/"},
             languages = {
-                lua = {{formatCommand = "lua-format -i", formatStdin = true}}
+                lua = {{formatCommand = "lua-format -i", formatStdin = true}},
+                html = {
+                    {formatCommand = "yarn run --silent prettier --parser html"}
+                },
+                typescript = {
+                    {
+                        formatCommand = "yarn run --silent prettier --parser typescript"
+                    }
+                },
+                typescriptreact = {
+                    {
+                        formatCommand = "yarn run --silent prettier --parser typescript"
+                    }
+                },
+                markdown = {
+                    {
+                        formatCommand = "yarn run --silent prettier --parser markdown"
+                    }
+                }
             }
+            -- prettier-parser
+            -- flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|
+            -- less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc
         }
     end,
     ["sumneko_lua"] = function(opts)
