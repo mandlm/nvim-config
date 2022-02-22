@@ -108,6 +108,9 @@ return require('packer').startup(function(use)
 		config = function() require('plugins.telescope') end,
 	})
 
+    -- automatic pairs
+    use({"Raimondi/delimitMate"})
+
     -- markdown preview
     use({'iamcco/markdown-preview.nvim'})
 
@@ -119,14 +122,6 @@ return require('packer').startup(function(use)
                 size = 32,
                 open_mapping = [[<F4>]],
             })
-        end,
-    })
-
-    -- auto-close brackets
-    use({
-        "windwp/nvim-autopairs",
-        config = function ()
-            require("nvim-autopairs").setup({})
         end,
     })
 
