@@ -84,7 +84,7 @@ local function custom_on_attach(client, buffer_nr)
     bufnnoremap("gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
     bufnnoremap("gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>")
     bufnnoremap("gr", "<Cmd>lua vim.lsp.buf.references()<CR>")
-    bufnnoremap("ga", "<Cmd>lua vim.lsp.buf.code_action()<CR>")
+    bufnnoremap("ga", "<Cmd>Telescope lsp_code_actions theme=cursor<CR>")
 
     -- Rename all references of symbol
     bufnnoremap("<leader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>")
