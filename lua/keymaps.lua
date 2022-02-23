@@ -30,6 +30,8 @@ nnoremap("<leader>g", ":Git<CR>")
 nnoremap("<leader>ff", "<Cmd>Telescope find_files theme=dropdown<CR>")
 nnoremap("<leader>fb", "<Cmd>Telescope buffers theme=dropdown<CR>")
 nnoremap("<leader>fg", "<Cmd>Telescope git_files theme=dropdown<CR>")
+nnoremap("<C-f>", "<Cmd>Telescope grep_string<CR>")
+nnoremap("<C-g>", "<Cmd>Telescope live_grep<CR>")
 
 -- terminal
 function _G.set_terminal_keymaps()
