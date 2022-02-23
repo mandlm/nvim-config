@@ -107,6 +107,7 @@ return require('packer').startup(function(use)
         requires = {{'nvim-lua/plenary.nvim'}},
         config = function() require('plugins.telescope') end
     })
+    use({'nvim-telescope/telescope-fzf-native.nvim', run ='make'})
 
     -- automatic pairs
     use({"Raimondi/delimitMate"})
