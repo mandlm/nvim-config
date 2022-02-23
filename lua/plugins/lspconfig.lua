@@ -93,15 +93,8 @@ local function custom_on_attach(client, buffer_nr)
     bufnnoremap("<C-n>", "<Cmd>lua vim.diagnostic.goto_next()<CR>")
     bufnnoremap("<C-p>", "<Cmd>lua vim.diagnostic.goto_prev()<CR>")
 
-    -- Show line diagnostics
-    bufnnoremap("<leader>d",
-                '<Cmd>lua vim.diagnostic.open_float(0, {scope = "line"})<CR>')
-
-    -- Open local diagnostics in local list
-    bufnnoremap("<leader>D", "<Cmd>lua vim.diagnostic.setloclist()<CR>")
-
-    -- Open all project diagnostics in quickfix list
-    bufnnoremap("<leader><C-d>", "<Cmd>lua vim.diagnostic.setqflist()<CR>")
+    -- Open diagnostics
+    bufnnoremap("<leader>d", "<Cmd>Telescope diagnostics<CR>")
 
     -- disable conflicting formatters
     if client.name == "tsserver" or client.name == "html" then
