@@ -63,7 +63,9 @@ return require('packer').startup(function(use)
         config = function()
             require("indent_blankline").setup {
                 char = "┊",
-                buftype_exclude = {"terminal", "help"}
+                buftype_exclude = {"terminal", "help", "nofile"},
+                filetype_exclude = {'help', 'packer'},
+                show_trailing_blankline_indent = false
             }
         end
     })
@@ -107,7 +109,7 @@ return require('packer').startup(function(use)
         requires = {{'nvim-lua/plenary.nvim'}},
         config = function() require('plugins.telescope') end
     })
-    use({'nvim-telescope/telescope-fzf-native.nvim', run ='make'})
+    use({'nvim-telescope/telescope-fzf-native.nvim', run = 'make'})
 
     -- automatic pairs
     use({"Raimondi/delimitMate"})
