@@ -46,4 +46,4 @@ end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- buffer closing
-nnoremap("<C-w>", ":Bdelete<CR>")
+nnoremap("<leader>q", ":Bdelete<CR>")
